@@ -29,6 +29,7 @@ func NewArray64(data []float64, shape ...int) (a *Array64) {
 			return &Array64{
 				shape:   []int{len(data)},
 				strides: []int{len(data), 1},
+				offset:  make([]int, len(shape)),
 				data:    data,
 				err:     nil,
 				debug:   "",
@@ -38,6 +39,7 @@ func NewArray64(data []float64, shape ...int) (a *Array64) {
 			return &Array64{
 				shape:   []int{0},
 				strides: []int{0, 0},
+				offset:  make([]int, len(shape)),
 				data:    []float64{},
 				err:     nil,
 				debug:   "",
@@ -46,7 +48,7 @@ func NewArray64(data []float64, shape ...int) (a *Array64) {
 		}
 	}
 
-	var sz int = 1
+	var sz = 1
 	sh := make([]int, len(shape))
 	for i, v := range shape {
 		if v < 0 {
@@ -64,6 +66,7 @@ func NewArray64(data []float64, shape ...int) (a *Array64) {
 	a = &Array64{
 		shape:   sh,
 		strides: make([]int, len(shape)+1),
+		offset:  make([]int, len(shape)),
 		data:    make([]float64, sz),
 		err:     nil,
 		debug:   "",
@@ -91,6 +94,7 @@ func newArray64(shape ...int) (a *Array64) {
 	a = &Array64{
 		shape:   shape,
 		strides: make([]int, len(shape)+1),
+		offset:  make([]int, len(shape)),
 		data:    make([]float64, sz),
 		err:     nil,
 		debug:   "",
@@ -283,6 +287,7 @@ func (a *Array64) Reshape(shape ...int) *Array64 {
 	}
 
 	a.strides = make([]int, len(sh)+1)
+	a.offset = make([]int, len(shape))
 	tmp := 1
 	for i := len(a.strides) - 1; i > 0; i-- {
 		a.strides[i] = tmp

@@ -63,7 +63,7 @@ func (a *Array64) At(index ...int) float64 {
 func (a *Array64) at(index []int) float64 {
 	var idx int
 	for i, v := range index {
-		idx += v * a.strides[i+1]
+		idx += (v * a.strides[i+1]) + a.offset[i]
 	}
 	return a.data[idx]
 }
