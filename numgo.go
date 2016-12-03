@@ -9,6 +9,41 @@ import (
 	"strings"
 )
 
+type nDimFields struct {
+	shape        []int
+	strides      []int
+	err          error
+	debug, stack string
+	data         []nDimElement
+}
+
+type nDimObject interface {
+	fields() nDimFields
+	Equals(nDimObject) *Arrayb
+	Shape() []int
+	C() nDimObject
+	Count(...int) *Array64
+	Flatten() nDimObject
+	GetErr() error
+	getErr() error //TODO is this nessesasy?
+	GetDebug() (err error, debugStr, stackTrace string)
+	At(...int) nDimElement
+	Set(nDimElement, ...int) *nDimFields
+	SetSliceElement(vals []nDimElement, index ...int) *nDimFields
+	Reshape(...int) nDimObject
+	HasErr() bool
+	at([]int) nDimElement //TODO is this nessesary?
+	SliceElement(...int) []nDimElement
+	SubArr(...int) *nDimFields
+	Resize(...int) *nDimFields
+}
+type nDimElement interface {
+}
+
+func (a nDimFields) fields() nDimFields {
+	return a
+}
+
 // Array64 is an n-dimensional array of float64 data
 type Array64 struct {
 	shape        []int
