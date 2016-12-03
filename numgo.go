@@ -44,13 +44,20 @@ func (a nDimFields) fields() nDimFields {
 	return a
 }
 
-// Array64 is an n-dimensional array of float64 data
-type Array64 struct {
-	shape        []int
-	strides      []int
-	data         []float64
-	err          error
-	debug, stack string
+// ElemtoFloat64 converts a nDimElement to the underlying Float64
+func ElemtoFloat64(e nDimElement) float64 {
+}
+
+//ElemstoFloat64 same as ElemtoFloat64 but with slice
+func ElemstoFloat64(e []nDimElement) []float64 {
+}
+
+//ElemtoBool converts a nDimElement to the underlying bool
+func ElemtoBool(e nDimElement) bool {
+}
+
+//ElemstoBool same as above but for slice
+func ElemstoBool(e []nDimElement) []bool {
 }
 
 // NewArray64 creates an Array64 object with dimensions given in order from outer-most to inner-most
