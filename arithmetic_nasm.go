@@ -1,6 +1,6 @@
 //+build !amd64 noasm appengine
 
-package asm
+package numgo
 
 var (
 	Sse3Supt, AvxSupt, Avx2Supt, FmaSupt bool
@@ -9,31 +9,31 @@ var (
 func initasm() {
 }
 
-func AddC(c float64, d []float64) {
+func AddC(c numgo.nDimElement, d []numgo.nDimElement) {
 	for i := range d {
 		d[i] += c
 	}
 }
 
-func SubtrC(c float64, d []float64) {
+func SubtrC(c numgo.nDimElement, d []numgo.nDimElement) {
 	for i := range d {
 		d[i] -= c
 	}
 }
 
-func MultC(c float64, d []float64) {
+func MultC(c numgo.nDimElement, d []numgo.nDimElement) {
 	for i := range d {
 		d[i] *= c
 	}
 }
 
-func DivC(c float64, d []float64) {
+func DivC(c numgo.nDimElement, d []numgo.nDimElement) {
 	for i := range d {
 		d[i] /= c
 	}
 }
 
-func Add(a, b []float64) {
+func Add(a, b []numgo.nDimElement) {
 	lna, lnb := len(a), len(b)
 	for i, j := 0, 0; i < lna; i, j = i+1, j+1 {
 		if j >= lnb {
@@ -43,13 +43,13 @@ func Add(a, b []float64) {
 	}
 }
 
-func Vadd(a, b []float64) {
+func Vadd(a, b []numgo.nDimElement) {
 	for i := range a {
 		a[i] += b[i]
 	}
 }
 
-func Hadd(st uint64, a []float64) {
+func Hadd(st uint64, a []numgo.nDimElement) {
 	ln := uint64(len(a))
 	for k := uint64(0); k < ln/st; k++ {
 		a[k] = a[k*st]
@@ -59,7 +59,7 @@ func Hadd(st uint64, a []float64) {
 	}
 }
 
-func Subtr(a, b []float64) {
+func Subtr(a, b []numgo.nDimElement) {
 	lna, lnb := len(a), len(b)
 	for i, j := 0, 0; i < lna; i, j = i+1, j+1 {
 		if j >= lnb {
@@ -69,7 +69,7 @@ func Subtr(a, b []float64) {
 	}
 }
 
-func Mult(a, b []float64) {
+func Mult(a, b []numgo.nDimElement) {
 	lna, lnb := len(a), len(b)
 	for i, j := 0, 0; i < lna; i, j = i+1, j+1 {
 		if j >= lnb {
@@ -79,7 +79,7 @@ func Mult(a, b []float64) {
 	}
 }
 
-func Div(a, b []float64) {
+func Div(a, b []numgo.nDimElement) {
 	lna, lnb := len(a), len(b)
 	for i, j := 0, 0; i < lna; i, j = i+1, j+1 {
 		if j >= lnb {
@@ -89,7 +89,7 @@ func Div(a, b []float64) {
 	}
 }
 
-func Fma12(a float64, x, b []float64) {
+func Fma12(a numgo.nDimElement, x, b []numgo.nDimElement) {
 	lnx, lnb := len(x), len(b)
 	for i, j := 0, 0; i < lnx; i, j = i+1, j+1 {
 		if j >= lnb {
@@ -99,7 +99,7 @@ func Fma12(a float64, x, b []float64) {
 	}
 }
 
-func Fma21(a float64, x, b []float64) {
+func Fma21(a numgo.nDimElement, x, b []numgo.nDimElement) {
 	lnx, lnb := len(x), len(b)
 	for i, j := 0, 0; i < lnx; i, j = i+1, j+1 {
 		if j >= lnb {

@@ -24,7 +24,7 @@ func (a *Array64) Add(b *Array64) *Array64 {
 	}
 
 	if b.shape[len(b.shape)-1] == a.shape[len(a.shape)-1] {
-		asm.Add(ElemstoFloat64(a.data), ElemstoFloat64(b.data))
+		asm.Add(a.data, b.data)
 		return a
 	}
 
